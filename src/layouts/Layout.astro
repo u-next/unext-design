@@ -1,0 +1,32 @@
+---
+import Footer from "@/components/Footer.astro";
+import Nav from "@/components/Nav.astro";
+import "@/styles/global.css";
+
+const { title = "UD", description } = Astro.props;
+---
+
+<!doctype html>
+<html lang={Astro.currentLocale}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description}>
+    <title>{title}</title>
+    <link rel="icon" type="image/svg+xml" href="/meta/favicon.svg" />
+    <!-- <link rel="alternate" hreflang={props.lang} href={props.path} /> -->
+  </head>
+  <body>
+    <Nav />
+    <main>
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>
+
+<style>
+  main {
+    padding: 64px;
+  }
+</style>

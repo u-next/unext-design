@@ -1,0 +1,9 @@
+---
+const url = "";
+import { useTranslations } from "@/i18n";
+const t = useTranslations(Astro.currentLocale);
+---
+
+<a href={url}>
+  {t({ ja: 'English', en: '日本語' })}
+</a>
