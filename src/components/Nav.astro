@@ -1,24 +1,109 @@
 ---
-import LangSwitch from "./LangSwitch.astro"
+import LangSwitch from "@/components/LangSwitch.astro";
+import { SITE_TITLE } from "@/consts";
+import { useTranslations } from "@/i18n";
+import { client } from "@/library/microcms";
+import { getRelativeLocaleUrl } from "astro:i18n";
+const t = useTranslations(Astro.currentLocale);
+
+const lang = Astro.currentLocale;
+const guidePageList = await client.get({
+  endpoint: "guide",
+  queries: { fields: ["id", "title"] },
+});
 ---
 
-<header>
+<nav class="l-nav">
   <h1>
-    <a href="/">UD</a>
+    <a href={getRelativeLocaleUrl(lang, "/")}>
+      <img src="/img/logo-ud.svg" alt={SITE_TITLE} />
+      <p class="line1">U-NEXT</p>
+      <p class="line2">DESIGN</p>
+    </a>
   </h1>
-  <nav>
-    <ul>
-      <li><a href="/article"></a></li>
-    </ul>
 
-    <LangSwitch />
-  </nav>
-</header>
+  <ul>
+    <li>
+      <a href={getRelativeLocaleUrl(lang, "/about")}>
+        <span class="material-icons-sharp">help</span>
+        {t({ ja: "概要", en: "ABOUT" })}
+      </a>
+    </li>
+    {
+      guidePageList.contents.map((content) => (
+        <li>
+          <a href={getRelativeLocaleUrl(lang, `/guide/${content.id}/`)}>
+            <span class="material-icons-sharp">info</span>
+            {t({ ja: content.title.ja, en: content.title.en })}
+          </a>
+        </li>
+      ))
+    }
+    <li>
+      <a href="">
+        <span class="material-icons-sharp"> space_dashboard </span>
+        {t({ ja: "イラスト", en: "ILLUSTRATION" })}
+        <small>*TBD</small>
+      </a>
+    </li>
+    <li>
+      <a href={getRelativeLocaleUrl(lang, "/product")}>
+        <span class="material-icons-sharp">devices</span>
+        {t({ ja: "プロダクト", en: "PRODUCT" })}
+      </a>
+    </li>
+    <li>
+      <a href={getRelativeLocaleUrl(lang, "/search")}>
+        <span class="material-icons-sharp">search</span>
+        {t({ ja: "検索", en: "SEARCH" })}
+      </a>
+    </li>
+  </ul>
 
-<style lang="less">
+  <LangSwitch />
+</nav>
 
-  header {
-    background-color: #eee;
-    padding: 24px 64px;
+<style>
+  nav {
+    background-color: var(--color-base);
+    display: grid;
+    place-content: center;
+    border-right: solid 2px var(--color-main);
+  }
+
+  h1 {
+    font-size: 32px;
+    margin-top: calc(-1 * var(--sp-l));
+    img {
+      width: 4.2em;
+      aspect-ratio: 2;
+    }
+    p {
+      line-height: 1;
+    }
+    .line1 {
+      margin: 0.6em 0 0;
+    }
+    .line2 {
+      margin: 0.2em 0 0;
+      font-size: 0.95em;
+    }
+  }
+
+  ul {
+    margin-top: var(--sp-l);
+    font-size: 1.2rem;
+    li {
+      margin-top: var(--sp-s);
+    }
+    a {
+      display: block;
+      padding: 0.25em;
+      border-radius: var(--r-m);
+      &:hover {
+        background-color: var(--color-main);
+        color: var(--color-base);
+      }
+    }
   }
 </style>

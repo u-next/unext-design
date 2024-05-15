@@ -1,54 +1,50 @@
-# Astro Starter Kit: Basics
+# U-NEXT DESIGN
 
-```sh
-npm create astro@latest -- --template basics
+![Logo](./public/meta/ogp.png)
+
+## Setup
+
+node環境が必要です
+
+インストール
+```
+npm i
 ```
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/basics)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/basics)
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/basics/devcontainer.json)
-
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
-
-![just-the-basics](https://github.com/withastro/astro/assets/2244813/a0a5533c-a856-4198-8470-2d67b1d7c554)
-
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src/
-│   ├── components/
-│   │   └── Card.astro
-│   ├── layouts/
-│   │   └── Layout.astro
-│   └── pages/
-│       └── index.astro
-└── package.json
+開発環境の起動
+```
+npm start
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+<br/><br/>
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+## ヒント
 
-Any static assets, like images, can be placed in the `public/` directory.
+### 色変数
+[global.css](./src/styles/global.css)内で[CSS変数](https://developer.mozilla.org/ja/docs/Web/CSS/Using_CSS_custom_properties)を定義しています。`color: var(--color-main);` のように使用してください。透明度を変更したい場合は `color: color-mix(in srgb, var(--color-main) 80%, transparent);` のように使用できます。
 
-## 🧞 Commands
+### budouX
+文字組みライブラリの[google/budoux](https://github.com/google/budoux)をグローバルにimportしています。以下のように記述すると、デバイス幅に応じて最適な位置で文字が改行されます。
 
-All commands are run from the root of the project, from a terminal:
+```.html
+<p>
+    <budoux-ja>
+        あのイーハトーヴォのすきとおった風、夏でも底に冷たさをもつ青いそら、うつくしい森で飾られたモリーオ市、郊外のぎらぎらひかる草の波。
+        またそのなかでいっしょになったたくさんのひとたち、ファゼーロとロザーロ、羊飼のミーロや、顔の赤いこどもたち、地主のテーモ、山猫博士のボーガント・デストゥパーゴなど、いまこの暗い巨きな石の建物のなかで考えていると、みんなむかし風のなつかしい青い幻燈のように思われます。では、わたくしはいつかの小さなみだしをつけながら、しずかにあの年のイーハトーヴォの五月から十月までを書きつけましょう
+    </budoux-ja>
+</p>
+```
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+### .lottieファイルの利用
+Lottieアニメーションを利用できます。ただし`.json`ではなく`.lottie`形式でご利用ください。
 
-## 👀 Want to learn more?
+> [!TIP]
+> [こちら](https://lottiefiles.com/jp/tools/lottie-to-dotlottie)から変換できます。
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+`.lottie`ファイルは`/public/lottie`配下に保存してください。
+
+```.html
+<dotlottie-player autoplay loop src="/lottie/cat.lottie"></dotlottie-player>
+```
+
+こんな感じで使用できます。

@@ -6,5 +6,6 @@ export const client = createClient({
   apiKey: import.meta.env.MICROCMS_API_KEY,
 });
 
+// https://document.microcms.io/content-api/introduction
 // https://github.com/microcmsio/microcms-js-sdk
 // レスポンスのサンプルはmicroCMSのAPIプレビューで確認可能

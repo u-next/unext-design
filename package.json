@@ -1,19 +1,33 @@
 {
-  "name": "unext-design",
-  "type": "module",
-  "version": "0.0.1",
+  "private": "true",
+  "engines": {
+    "node": ">=18"
+  },
   "scripts": {
-    "dev": "astro dev",
+    "dev": "astro dev --host",
     "start": "astro dev",
-    "build": "astro build",
+    "build": "astro build && npm run pagefind",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "pagefind": "pagefind --site dist"
   },
   "dependencies": {
+    "@astrojs/sitemap": "^3.1.4",
+    "@dotlottie/player-component": "^2.7.12",
+    "@pagefind/default-ui": "^1.1.0",
     "astro": "^4.6.2",
-    "microcms-js-sdk": "^3.1.0"
+    "astro-font": "^0.0.81",
+    "budoux": "^0.6.2",
+    "microcms-js-sdk": "^3.1.0",
+    "pagefind": "^1.1.0"
   },
   "devDependencies": {
-    "less": "^4.2.0"
+    "prettier": "^3.2.5",
+    "prettier-plugin-astro": "^0.13.0"
+  },
+  "prettier": {
+    "plugins": [
+      "prettier-plugin-astro"
+    ]
   }
 }

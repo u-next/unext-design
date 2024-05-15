@@ -1,0 +1,82 @@
+---
+import { LANGS, useTranslations } from "@/i18n";
+import Layout from "@/layouts/Layout.astro";
+const t = useTranslations(Astro.currentLocale);
+
+export async function getStaticPaths() {
+  return Object.keys(LANGS).map((lang) => ({
+    params: { lang },
+  }));
+}
+
+// APIテスト
+const url =
+  "https://api.figma.com/v1/images/UU3tgtBEDh6HgcvaYY6SR1?ids=721-1753";
+const options = {
+  method: "GET",
+  headers: {
+    "X-FIGMA-TOKEN": import.meta.env.FIGMA_ACCESS_TOKEN,
+  },
+};
+
+const fetchedImgPath = await fetch(url, options)
+  .then((response) => {
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+    return response.json();
+  })
+  .then((data) => {
+    console.log(data);
+    return data.images[Object.keys(data.images)[0]];
+  })
+  .catch((error) => {
+    console.error("There has been a problem with your fetch operation:", error);
+  });
+---
+
+<Layout title="Product">
+  <div class="l-content">
+    <h1>{t({ ja: "プロダクト", en: "Product" })}</h1>
+
+    <section>
+      <h2>{t({ ja: "iframe埋め込みテスト", en: "iframe embed test" })}</h2>
+      <iframe
+        style="border: 1px solid rgba(0, 0, 0, 0.1);"
+        width="800"
+        height="450"
+        src="https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fdesign%2FFCrd1uYqTKyUW16MtbWU8C%2F%25F0%259F%258D%258E-hira.page%3Fnode-id%3D3096%253A770%26t%3DlzRQhyDXHH07BBg7-1"
+        allowfullscreen></iframe>
+    </section>
+
+    <section>
+      <h2>{t({ ja: "APIテスト", en: "API test" })}</h2>
+      <img src={fetchedImgPath} alt="TEST" />
+    </section>
+
+    <section>
+      <h2>RESOURCE</h2>
+      <ul>
+        <li>
+          <a
+            href="https://www.figma.com/developers/api"
+            target="_blank"
+            rel="noopener">REST API - Figma</a
+          >
+        </li>
+        <li></li>
+        <li></li>
+        <li></li>
+      </ul>
+    </section>
+  </div>
+</Layout>
+
+<style>
+  h1 {
+    margin-top: var(--sp-l);
+  }
+  h2 {
+    margin-top: var(--sp-m);
+  }
+</style>
