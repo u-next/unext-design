@@ -1,3 +1,7 @@
+> [!NOTE]
+> こちらは実験的に作成中のページです。秘匿情報が含まれていません。
+
+
 # U-NEXT DESIGN
 
 ![Logo](./public/meta/ogp.png)
